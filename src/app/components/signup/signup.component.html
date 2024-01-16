@@ -8,39 +8,50 @@
             <h3 class="pt-3 font-weight-bold">Create Account</h3>
           </div>
           <div class="panel-body p-3">
-            <form>
+            <form [formGroup]="signUpForm">
+
               <div class="form-group pt-3">
-                <div class="input-filed">
+                <div class="input-filed" [class.error]="signUpForm.controls['firstName'].dirty&& signUpForm.hasError('required','firstName')">
                   <span class="fa fa-address-card p-2"></span>
-                  <input type="text" placeholder="Firstname">
+                  <input type="text" placeholder="Firstname" formControlName="firstName">
                 </div>
               </div>
+              <small *ngIf="signUpForm.controls['firstName'].dirty&& signUpForm.hasError('required','firstName')" class="text-danger">*First-Name must be required</small>
+
                 <div class="form-group pt-3">
                   <div class="input-filed">
                     <span class="fa fa-address-card p-2"></span>
-                    <input type="text" placeholder="LastName">
+                    <input type="text" placeholder="LastName" formControlName="lastName">
                   </div>
                 </div>
+              <small class="text-danger">*Last-Name must be required</small>
+
                   <div class="form-group pt-3">
                     <div class="input-filed">
                       <span class="fa fa-envelope p-2"></span>
-                      <input type="text" placeholder="Email">
+                      <input type="text" placeholder="Email" formControlName="Email">
                     </div>
                   </div>
+              <small class="text-danger">*Email must be required</small>
+
               <div class="form-group pt-3">
                 <div class="input-filed">
                   <span class="fa fa-user-plus p-2"></span>
-                  <input type="text" placeholder="Username">
+                  <input type="text" placeholder="Username" formControlName="userName">
                 </div>
               </div>
+              <small class="text-danger">*Username must be required</small>
+
               <div class="form-group pt-3">
                 <div class="input-filed">
                   <span class="fa fa-key p-2"></span>
-                  <input [type]="type" placeholder="Password" id="passwordInput">
+                  <input [type]="type" placeholder="Password" id="passwordInput" formControlName="password">
                   <span (click)="hideShowPass()" class="fa {{eyeIcon}}"></span>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary btn-block mt-4 w-100">Sign Up</button>
+              <small class="text-danger">*Password must be required</small>
+
+              <button  (click)="onSingup()" type="submit" class="btn btn-primary btn-block mt-4 w-100">Sign Up</button>
               <div class="text-center pt-4 text-muted">Already have account?<a id="signup" [routerLink]="['/','login']" class="text-decoration-none" > Login</a></div>
             </form>
           </div>
