@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import Validateform from "../../helpers/validateform";
 
 @Component({
   selector: 'app-login',
@@ -39,24 +40,11 @@ export class LoginComponent implements OnInit{
       //send data to database
     }else {
       console.log('form invalid')
-      this.validateAllFormFileds(this.loginForm);
+      Validateform.validateAllFormFileds(this.loginForm);
       alert('your form is not valid')
 
     }
   }
 
 
-
-
-  //this method is used to show an error message when we click on submit button without input data
-  private validateAllFormFileds(formGroup:FormGroup){
-    Object.keys(formGroup.controls).forEach(field=>{
-      const control = formGroup.get(field);
-      if(control instanceof FormControl){
-        control.markAsDirty({onlySelf:true})
-      }else if (control instanceof FormGroup){
-        this.validateAllFormFileds(control)
-      }
-    })
-  }
 }
