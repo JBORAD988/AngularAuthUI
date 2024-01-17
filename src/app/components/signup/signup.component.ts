@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import Validateform from "../../helpers/validateform";
+import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -16,7 +18,7 @@ export class SignupComponent implements OnInit{
 
 
   signUpForm!: FormGroup;
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private auth : AuthService, private route : Router) {
   }
 
   ngOnInit() {
@@ -40,9 +42,14 @@ export class SignupComponent implements OnInit{
     if (this.signUpForm.valid){
       //perform logic for signup
       console.log(this.signUpForm.value)
+      this.auth.signUp(this.signUpForm.value).subscribe(res=>{
+        alert(res.message);
+        this.signUpForm.reset();
+        this.route.navigate(['login'])
+      }, error => { alert("User Already Exist")})
     }else{
       //logic for validation check
-      console.log(' Form invalide')
+      console.log(' Form invalid')
       Validateform.validateAllFormFileds(this.signUpForm)
       alert('your form is not valid')
 

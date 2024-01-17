@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import Validateform from "../../helpers/validateform";
+import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,7 @@ export class LoginComponent implements OnInit{
   loginForm!: FormGroup;
 
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private auth: AuthService,private route: Router) {
   }
 
   ngOnInit() {
@@ -38,6 +40,13 @@ export class LoginComponent implements OnInit{
     if (this.loginForm.valid){
       console.log(this.loginForm.value)
       //send data to database
+      this.auth.login(this.loginForm.value).subscribe(res=>{
+        alert(res.message);
+        this.loginForm.reset();
+        this.route.navigate(['dashboard'])
+
+      },err=>{alert("User Already Exist Or Password Was Not Correct ")})
+
     }else {
       console.log('form invalid')
       Validateform.validateAllFormFileds(this.loginForm);
