@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit{
         this.route.navigate(['dashboard'])
 
       },err=>{
-        this.toast.error({detail:"Error" ,summary:"User Was Incorrect  Or Password Was Incorrect " , duration: 5000})
+        this.toast.error({detail:"Error" ,summary:err.message , duration: 5000})
       })
 
     }else {
