@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import Validateform from "../../helpers/validateform";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
+import {NgToastService} from "ng-angular-popup";
 
 
 @Component({
@@ -18,7 +19,7 @@ export class SignupComponent implements OnInit{
 
 
   signUpForm!: FormGroup;
-  constructor(private fb: FormBuilder, private auth : AuthService, private route : Router) {
+  constructor(private fb: FormBuilder, private auth : AuthService, private route : Router , private  toast : NgToastService) {
   }
 
   ngOnInit() {
@@ -38,24 +39,36 @@ export class SignupComponent implements OnInit{
 
   }
 
-  onSingup(){
-    if (this.signUpForm.valid){
-      //perform logic for signup
-      console.log(this.signUpForm.value)
-      this.auth.signUp(this.signUpForm.value).subscribe(res=>{
-        alert(res.message);
-        this.signUpForm.reset();
-        this.route.navigate(['login'])
-      }, error => { alert("User Already Exist")})
-    }else{
-      //logic for validation check
-      console.log(' Form invalid')
-      Validateform.validateAllFormFileds(this.signUpForm)
-      alert('your form is not valid')
+  onSingup() {
+    if (this.signUpForm.valid) {
+      // Perform logic for signup
+      console.log(this.signUpForm.value);
 
+      this.auth.signUp(this.signUpForm.value).subscribe(
+        (res: any) => {
+          // alert(res.message);
+          this.toast.success({detail:"SUCCESS", summary:res.message, duration:5000})
+
+          this.signUpForm.reset();
+          this.route.navigate(['login']);
+        },
+        (error) => {
+          if (error.error && error.error.message) {
+            // alert(error.error.message);
+            this.toast.error({detail:"Error",summary:error.error.message, duration:5000})
+          } else {
+            this.toast.error({detail:"Error undefined", summary:"An error occurred during signup", duration:5000})
+          }
+        }
+      );
+    } else {
+      // Logic for validation check
+      console.log('Form invalid');
+      Validateform.validateAllFormFileds(this.signUpForm);
+      this.toast.error({detail:"Form Invalid", summary:"Fill-up the all Details", duration: 5000})
     }
-
   }
+
 
 
 }

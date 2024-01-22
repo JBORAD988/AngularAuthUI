@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import Validateform from "../../helpers/validateform";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit{
   loginForm!: FormGroup;
 
 
-  constructor(private fb: FormBuilder, private auth: AuthService,private route: Router) {
+  constructor(private fb: FormBuilder, private auth: AuthService,private route: Router, private toast: NgToastService) {
   }
 
   ngOnInit() {
@@ -41,16 +42,18 @@ export class LoginComponent implements OnInit{
       console.log(this.loginForm.value)
       //send data to database
       this.auth.login(this.loginForm.value).subscribe(res=>{
-        alert(res.message);
+        this.toast.success({detail:"SUCCESS", summary: res.message, duration: 5000})
         this.loginForm.reset();
         this.route.navigate(['dashboard'])
 
-      },err=>{alert("User Already Exist Or Password Was Not Correct ")})
+      },err=>{
+        this.toast.error({detail:"Error" ,summary:"User Was Incorrect  Or Password Was Incorrect " , duration: 5000})
+      })
 
     }else {
       console.log('form invalid')
       Validateform.validateAllFormFileds(this.loginForm);
-      alert('your form is not valid')
+     this.toast.error({detail:"Fill The Details",summary:"Please Enter Username and Password",duration: 5000})
 
     }
   }
