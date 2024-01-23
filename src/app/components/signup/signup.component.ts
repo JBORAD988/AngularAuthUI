@@ -65,7 +65,7 @@ export class SignupComponent implements OnInit{
       // Logic for validation check
       console.log('Form invalid');
       Validateform.validateAllFormFileds(this.signUpForm);
-      this.toast.error({detail:"Form Invalid", summary:"Fill-up the all Details", duration: 5000})
+      this.toast.warning({detail:"Form Invalid", summary:"Fill-up the all Details", duration: 5000})
     }
   }
 

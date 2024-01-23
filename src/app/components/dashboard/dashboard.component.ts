@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {ApiService} from "../../services/api.service";
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +11,7 @@ import {ApiService} from "../../services/api.service";
 export class DashboardComponent implements OnInit{
 
   public users:any = [];
-  constructor(private auth: AuthService, private api: ApiService) {
+  constructor(private auth: AuthService, private api: ApiService , private toast: NgToastService) {
   }
 
   ngOnInit() {
@@ -22,5 +23,6 @@ export class DashboardComponent implements OnInit{
 
   logout(){
     this.auth.signout()
+    return this.toast.info({detail:"Logout",summary:"You have successfully logged out!",duration:5000})
   }
 }

@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit{
       console.log(this.loginForm.value)
       //send data to database
       this.auth.login(this.loginForm.value).subscribe(res=>{
-        this.toast.success({detail:"SUCCESS", summary: res.message, duration: 5000})
+        this.toast.success({detail:"SUCCESS", summary: res.message, duration: 5000 })
         this.loginForm.reset();
         this.auth.storeToken(res.token)
         this.route.navigate(['dashboard'])
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit{
     }else {
       console.log('form invalid')
       Validateform.validateAllFormFileds(this.loginForm);
-     this.toast.error({detail:"Fill The Details",summary:"Please Enter Username and Password",duration: 5000})
+     this.toast.warning({detail:"Fill The Details",summary:"Please Enter Username and Password",duration: 5000})
 
     }
   }

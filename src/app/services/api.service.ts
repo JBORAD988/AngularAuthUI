@@ -11,4 +11,6 @@ export class ApiService {
   getUsers(){
     return this.http.get<any>('https://localhost:7150/api/Users')
   }
+
+
 }

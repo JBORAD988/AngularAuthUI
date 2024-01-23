@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http : HttpClient, private   route : Router) { }
+  constructor(private http : HttpClient, private   route : Router ) { }
 
 
   signUp(userObj: any){

@@ -8,9 +8,10 @@ import { SignupComponent } from './components/signup/signup.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatBadgeModule} from '@angular/material/badge';
-import { HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import {NgToastModule} from "ng-angular-popup";
+import {TokenInterceptor} from "./interceptors/token.interceptor";
 
 
 @NgModule({
@@ -29,7 +30,12 @@ import {NgToastModule} from "ng-angular-popup";
     HttpClientModule,
     NgToastModule
   ],
-  providers: [],
+  providers: [{
+    provide:HTTP_INTERCEPTORS,
+    useClass:TokenInterceptor,
+    multi:true
+  }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
