@@ -1,52 +1,126 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" routerLink="dashboard">Dashboard</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="dashboard">Admin</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link bg-danger" (click)="logout()">Logout</a>
-        </li>
+<div class="burger" #burgerMenu>
+  <span></span>
+</div>
 
-      </ul>
-    </div>
+<nav>
+  <ul class="main">
+    <li><a >{{ fullName }}</a></li>
+<!--    <li><a >Shop</a></li>-->
+<!--    <li><a >About</a></li>-->
+<!--    <li><a>Contact</a></li>-->
+    <li><a (click)="logout()">LogOut</a></li>
+  </ul>
+
+  <div class="about">
+    <p> This Website was Design & Developed by jay Borad.</p>
   </div>
+
+  <div class="social" style="color: wheat ">
+    <a href="https://github.com/jborad988" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64px" height="64px">
+        <path d="M12 0C5.371 0 0 5.373 0 12c0 5.303 3.438 9.8 8.207 11.387.6.113.793-.261.793-.577 0-.285-.008-1.04-.012-2.04-3.338.724-4.043-1.611-4.043-1.611-.547-1.389-1.334-1.757-1.334-1.757-1.089-.744.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.834 2.807 1.305 3.494.995.109-.777.417-1.305.759-1.605-2.657-.303-5.44-1.326-5.44-5.89 0-1.302.465-2.367 1.235-3.202-.123-.303-.535-1.518.117-3.16 0 0 1.005-.321 3.3 1.227.957-.267 1.983-.399 3.003-.402 1.02.003 2.047.135 3.004.402 2.292-1.548 3.297-1.227 3.297-1.227.654 1.642.241 2.857.117 3.16.77.835 1.232 1.9 1.232 3.202 0 4.574-2.786 5.584-5.449 5.883.428.369.809 1.095.809 2.205 0 1.592-.015 2.872-.015 3.265 0 .318.191.693.8.574C20.566 21.799 24 16.303 24 12c0-6.627-5.373-12-12-12"></path>
+      </svg>
+    </a>JBorad988 or visit my site <a href="https://jbond.me">Jbond.me</a>
+  </div>
+
+<!--  <ul class="sub">-->
+<!--    <li> <a href="">FAQ &amp; Shipping</a></li>-->
+<!--    <li> <a href="">Terms &amp; Conditions</li>-->
+<!--  </ul>-->
 </nav>
+<div class="overlay" #overlay></div>
+
 
 <!--body -->
 <div class="container my-5">
-  <h1 class="mb-3"> All Users </h1>
+  <h1 class="mb-3">All Users</h1>
   <table class="table" *ngIf="users && users.length > 0">
     <thead>
     <tr>
       <th>Username</th>
-      <th>Name</th>
-<!--      <th>Department</th>-->
-<!--      <th>Email</th>-->
-<!--      <th>Phone</th>-->
-<!--      <th>Salary</th>-->
-      <th> </th>
+      <th>Full Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Action</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let user of users">
-      <td>{{user.username}}</td>
-<!--      <td>{{user.firstName}}</td>-->
-<!--      <td>{{employee.lastName}}</td>-->
-<!--      <td>{{employee.Email}}</td>-->
-<!--      <td>{{employee.phone}}</td>-->
-<!--      <td>{{employee.salary}}</td>-->
-<!--      <td><button mat-raised-button [routerLink]="['/employees','edit',user.id]">Edit Data</button></td>-->
-
+      <td class="justify-content-center">
+        <div class="form-control" *ngIf="user.isEdit">
+          <input type="text" [(ngModel)]="UserDetails.username" placeholder="Username">
+        </div>
+        <div *ngIf="!user.isEdit">
+          {{ user.username }}
+        </div>
+      </td>
+      <td class="justify-content-center">
+        <div class="d-flex" *ngIf="user.isEdit">
+          <div class="form-control">
+            <input type="text" [(ngModel)]="UserDetails.firstName" placeholder="First Name">
+          </div>
+          <div class="form-control">
+            <input type="text" [(ngModel)]="UserDetails.lastName" placeholder="Last Name">
+          </div>
+        </div>
+        <div *ngIf="!user.isEdit">
+          {{ user.firstName + ' ' + user.lastName }}
+        </div>
+      </td>
+      <td class="justify-content-center">
+        <div class="form-control" *ngIf="user.isEdit">
+            <mat-form-field appearance="fill">
+              <mat-label>Email</mat-label>
+              <input matInput type="text" [(ngModel)]="UserDetails.email" placeholder="Email">
+              <mat-hint>Hint</mat-hint>
+            </mat-form-field>
+        </div>
+        <div *ngIf="!user.isEdit">
+          {{ user.email }}
+        </div>
+      </td>
+      <td class="justify-content-center">
+        <div *ngIf="user.isEdit">
+<!--          <select class="form-select" [(ngModel)]="UserDetails.role">-->
+<!--            <option selected>{{ user.role }}</option>-->
+<!--            <option value="HR">HR</option>-->
+<!--            <option value="Admin">Admin</option>-->
+<!--            <option value="Angular">Angular Developer</option>-->
+<!--            <option value="Frontend">Front-end Developer</option>-->
+<!--            <option value="React">React Developer</option>-->
+<!--            <option value="Net">.Net Developer</option>-->
+<!--            <option value="Finance">Finance</option>-->
+<!--          </select>-->
+          <mat-form-field>
+            <mat-label>Currency</mat-label>
+            <mat-select name="role" [(ngModel)]="UserDetails.role">
+              <mat-option *ngFor="let role of roles " [value]="UserDetails.role">
+                {{ role.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div *ngIf="!user.isEdit">
+          {{ user.role }}
+        </div>
+      </td>
+      <td class="justify-content-center">
+        <div *ngIf="!user.isEdit">
+          <i class="fa fa-pencil-square-o px-2" aria-hidden="true" (click)="onEdit(user)" title="Edit"></i>
+          <i class="fa fa-trash-o" aria-hidden="true" (click)="onDeleteClick(user.id)" title="Delete"></i>
+        </div>
+        <div *ngIf="user.isEdit">
+          <i class="fa fa-cloud px-2" aria-hidden="true" (click)="updateData()" title="Save"></i>
+          <i class="fa fa-times-circle" aria-hidden="true" (click)="OnCancel(user)" title="Cancel"></i>
+        </div>
+      </td>
     </tr>
     </tbody>
-
   </table>
   <p *ngIf="!users || users.length <= 0">No Employees Found</p>
 </div>
+
 <!--<button class="btn btn-danger" (click)=logout()> Log Out</button>-->
+
+
+

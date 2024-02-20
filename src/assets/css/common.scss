@@ -1,7 +1,7 @@
 .outer{
   height: 100vh;
-  background: linear-gradient(to top, #c9c9ff 50%, #6e6ef8 90%) no-repeat;
-
+  //background: linear-gradient(to top, #c9c9ff 50%, #6e6ef8 90%) no-repeat;
+  background: linear-gradient(to top, #1A1B25 50%, #F5DEB3 90%) no-repeat;
 }
 
 .panel-heading{
@@ -28,7 +28,12 @@ a:hover{
 .btn{
   margin-top: 20px;
   border-radius: 15px;
+  color: #1A1B25;;
+  background-color: #F5DEB3;
+  box-shadow: #F5DEB3;
+  border-color: #F5DEB3;
 }
+
 
 .panel{
   min-height: 380px;
@@ -44,7 +49,8 @@ a:hover{
   align-items: center;
   cursor: pointer;
   border: 1px solid #ddd;
-  color: #4343ff;
+  color: #1A1B25;
+  //color: #4343ff;
 }
 
 .input-filed.error{
@@ -102,4 +108,11 @@ img{
   transform: translateX(-50%); /* Center the content horizontally */
   background-color: white;
   padding: 0 8px;
+}
+
+.btn-block:hover{
+  background-color: #2d2d2f;
+  color: #F5DEB3;
+  border-color: #2d2d2f;
+
 }
