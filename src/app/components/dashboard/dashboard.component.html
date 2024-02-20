@@ -68,19 +68,17 @@
         </div>
       </td>
       <td class="justify-content-center">
-        <div class="form-control" *ngIf="user.isEdit">
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" *ngIf="user.isEdit">
               <mat-label>Email</mat-label>
               <input matInput type="text" [(ngModel)]="UserDetails.email" placeholder="Email">
-              <mat-hint>Hint</mat-hint>
+<!--              <mat-hint>Hint</mat-hint>-->
             </mat-form-field>
-        </div>
         <div *ngIf="!user.isEdit">
           {{ user.email }}
         </div>
       </td>
       <td class="justify-content-center">
-        <div *ngIf="user.isEdit">
+<!--        <div *ngIf="user.isEdit">-->
 <!--          <select class="form-select" [(ngModel)]="UserDetails.role">-->
 <!--            <option selected>{{ user.role }}</option>-->
 <!--            <option value="HR">HR</option>-->
@@ -91,18 +89,22 @@
 <!--            <option value="Net">.Net Developer</option>-->
 <!--            <option value="Finance">Finance</option>-->
 <!--          </select>-->
-          <mat-form-field>
-            <mat-label>Currency</mat-label>
-            <mat-select name="role" [(ngModel)]="UserDetails.role">
-              <mat-option *ngFor="let role of roles " [value]="UserDetails.role">
-                {{ role.viewValue }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+<!--          </div>-->
+        <mat-form-field *ngIf="user.isEdit">
+          <mat-label>Currency</mat-label>
+          <mat-select name="role" [(ngModel)]="UserDetails.role">
+            <mat-option *ngFor="let role of roles" [value]="role.value">
+              {{ role.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+<!--        <div *ngIf="!user.isEdit">-->
+<!--          {{ user.role }}-->
+<!--        </div>-->
         <div *ngIf="!user.isEdit">
-          {{ user.role }}
+          {{ getRoleFullName(user.role) }}
         </div>
+
       </td>
       <td class="justify-content-center">
         <div *ngIf="!user.isEdit">

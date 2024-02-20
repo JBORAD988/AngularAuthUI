@@ -153,7 +153,6 @@ export class DashboardComponent implements OnInit {
 
 
   updateData() {
-    debugger
     this.api.updateEmployee(this.UserDetails.id, this.UserDetails).subscribe(
       (response: any) => {
         console.log('User updated successfully:', response);
@@ -168,17 +167,22 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  getRoleFullName(roleValue: string): string {
+    const role = this.roles.find(item => item.value === roleValue);
+    return role ? role.viewValue : '';
+  }
+
 
   roles = [
-    { value: 'USD', viewValue: 'United States Dollar' },
-    { value: 'INR', viewValue: 'Indian Rupee' },
-    { value: 'AUD', viewValue: 'Australian Dollar' },
-    {value: 'EUR ', viewValue: 'Euro'},
-    {value: 'GBP ', viewValue: 'British Pound Sterling'},
-    {value: 'CAD ', viewValue: 'Canadian Dollar'},
-    {value: 'NZD ', viewValue: 'New Zealand Dollar'},
-    {value: 'CHF ', viewValue: 'Swiss Franc'},
-    {value: 'AED' , viewValue: 'United Arab Emirates Dirham'},
+    { value: 'HR', viewValue: 'HR' },
+    { value: 'ANG', viewValue: 'Angular Developer' },
+    { value: 'NET', viewValue: '.NET Developer' },
+    {value: 'ADM ', viewValue: 'Admin'},
+    {value: 'FIN ', viewValue: 'Accounting'},
+    {value: 'BDE ', viewValue: 'Business Development'},
+    {value: 'REC ', viewValue: 'React js'},
+    {value: 'FS ', viewValue: 'Full-Stack'},
+    {value: 'SUDO' , viewValue: 'Founders'},
   ];
 
 
