@@ -1,0 +1,54 @@
+<div class="burger" #burgerMenu>
+  <span></span>
+</div>
+
+<nav>
+  <ul class="main">
+    <li><a >{{ fullName }}</a></li>
+    <!--    <li><a >Shop</a></li>-->
+    <!--    <li><a >About</a></li>-->
+    <!--    <li><a>Contact</a></li>-->
+    <li><a (click)="logout()">LogOut</a></li>
+  </ul>
+
+  <div class="about">
+    <p> This Website was Design & Developed by jay Borad.</p>
+  </div>
+
+  <div class="social" style="color: wheat ">
+    <a href="https://github.com/jborad988" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64px" height="64px">
+        <path d="M12 0C5.371 0 0 5.373 0 12c0 5.303 3.438 9.8 8.207 11.387.6.113.793-.261.793-.577 0-.285-.008-1.04-.012-2.04-3.338.724-4.043-1.611-4.043-1.611-.547-1.389-1.334-1.757-1.334-1.757-1.089-.744.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.834 2.807 1.305 3.494.995.109-.777.417-1.305.759-1.605-2.657-.303-5.44-1.326-5.44-5.89 0-1.302.465-2.367 1.235-3.202-.123-.303-.535-1.518.117-3.16 0 0 1.005-.321 3.3 1.227.957-.267 1.983-.399 3.003-.402 1.02.003 2.047.135 3.004.402 2.292-1.548 3.297-1.227 3.297-1.227.654 1.642.241 2.857.117 3.16.77.835 1.232 1.9 1.232 3.202 0 4.574-2.786 5.584-5.449 5.883.428.369.809 1.095.809 2.205 0 1.592-.015 2.872-.015 3.265 0 .318.191.693.8.574C20.566 21.799 24 16.303 24 12c0-6.627-5.373-12-12-12"></path>
+      </svg>
+    </a>JBorad988 or visit my site <a href="https://jbond.me">Jbond.me</a>
+  </div>
+
+  <!--  <ul class="sub">-->
+  <!--    <li> <a href="">FAQ &amp; Shipping</a></li>-->
+  <!--    <li> <a href="">Terms &amp; Conditions</li>-->
+  <!--  </ul>-->
+</nav>
+<div class="overlay" #overlay></div>
+
+
+  <ejs-grid
+    [dataSource]="users"
+    [allowSorting]="true"
+    [allowPaging]="true"
+    [allowFiltering]="true"
+    [pageSettings]="pageSettings"
+    [allowGrouping]="true"
+    [editSettings]="{ allowEditing: true, allowAdding: true, allowDeleting: true, mode: 'Normal', newRowPosition: 'Bottom' }"
+    [toolbar]="['Add', 'Edit', 'Delete', 'Update', 'Cancel']"
+  >
+
+  <e-columns>
+    <e-column field="id" headerText="ID" isPrimaryKey="true"></e-column>
+    <e-column field="firstName" headerText="First Name"></e-column>
+    <e-column field="lastName" headerText="Last Name"></e-column>
+    <e-column field="email" headerText="E-Mail"></e-column>
+    <e-column field="role" headerText="Role" editType='dropdownedit' [edit]="ddParams"></e-column>
+  </e-columns>
+
+</ejs-grid>
+
